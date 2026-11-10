@@ -387,3 +387,35 @@ window.addEventListener("resize", () => {
 ========================================= */
 resizeCanvas();
 startSequence();
+
+function startHeartFinale() {
+    const step = Math.min(W, H) < 500 ? 42 : 56;
+
+    // ၁။ Voice (wish) ကို ရပ်မယ်
+    wishVoice.pause();
+    wishVoice.currentTime = 0;
+
+    // ၂။ Intro သီချင်းကို ပြန်ဖွင့်မယ်
+    introMusic.volume = 0.45; // အသံအတိုးအကျယ် ပြန်ချိန်မယ်
+    introMusic.play().catch((err) => {
+        console.log("Intro music replay blocked:", err);
+    });
+    
+    // သီချင်းပြန်ဖွင့်ထားကြောင်း အမှတ်အသားပြုမယ်
+    musicStarted = true; 
+
+    // ၃။ အသည်းပုံတွေ စီမယ်
+    heartPositions.forEach((pos, idx) => {
+        const tile = document.createElement("div");
+        tile.className = "heart-tile";
+        const img = document.createElement("img");
+        img.src = CONFIG.collagePhotos[idx % CONFIG.collagePhotos.length];
+        tile.appendChild(img);
+        heartStage.appendChild(tile);
+
+        setTimeout(() => {
+            tile.style.opacity = "1";
+            tile.style.transform = `translate(${pos.x * step}px, ${pos.y * step}px) scale(1)`;
+        }, idx * 110);
+    });
+}
