@@ -1,0 +1,418 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+:root {
+    --gold: #d8b56d;
+    --gold-light: #f5dfaa;
+    --navy: #0b1729;
+    --dark: #03060d;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    font-family: "Segoe UI", "Myanmar Text", sans-serif;
+    color: white;
+    background: radial-gradient(ellipse at center, #172943, #080e19 65%, #03060c);
+}
+
+canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#stage1-canvas {
+    z-index: 10;
+    transition: opacity 1s;
+}
+
+#star-canvas {
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1.5s;
+}
+
+/* =========================================
+   INTRO STAGE (Option C Updated)
+========================================= */
+#bear-intro {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(.8);
+    transition: .8s ease;
+}
+
+#bear-intro.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.candle-banner {
+    text-align: center;
+    margin-bottom: 35px;
+    animation: float 3s infinite ease-in-out;
+}
+
+/* အိုင်ကွန်နဲ့ SCORPIO SEASON စာသား */
+.scorpio-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: clamp(20px, 5vw, 26px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+    text-shadow: 0 0 15px var(--gold);
+    margin-bottom: 15px;
+}
+
+.scorpio-icon {
+    font-size: clamp(28px, 6vw, 36px);
+    color: #a87ffb; /* ခဲ့ပုံစံ ခရမ်းရောင် */
+    text-shadow: 0 0 15px #a87ffb;
+    display: inline-block;
+    animation: pulse-glow 2s infinite;
+}
+
+/* HAPPY BIRTHDAY စာသား */
+.happy-title {
+    color: white;
+    font-size: clamp(26px, 7vw, 38px);
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px var(--gold);
+}
+
+/* ပုံပတ်လည် ဘောင် + ကြယ်များ */
+.photo-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: min(60vw, 260px);
+    height: min(60vw, 260px);
+}
+
+/* စက်ဝိုင်း ဓာတ်ပုံဘောင် */
+.bear-character {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 6px; /* အတွင်းဘောင်အကွာအဝေး */
+    background: linear-gradient(135deg, #f5dfaa, #d8b56d, #8c6a35, #d8b56d);
+    box-shadow: 
+        0 0 25px rgba(216, 181, 109, 0.6), 
+        inset 0 0 15px rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* ဒုတိယထပ် ဘောင် (အပြင်ဘက်) */
+.bear-character::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 2px solid rgba(216, 181, 109, 0.4);
+    box-shadow: 0 0 15px rgba(216, 181, 109, 0.2);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.bear-character img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #101d30;
+    filter: brightness(1.1) contrast(1.05); /* ပုံကို နည်းနည်း ပိုလင်းအောင် */
+    transform: rotate(0deg); /* စောင်းနေတာကို ဖြောင့်ထားသည် */
+}
+
+/* ပုံပတ်လည် ကြယ်လေးများ */
+.orbit-stars .star {
+    position: absolute;
+    color: var(--gold-light);
+    font-size: 14px;
+    text-shadow: 0 0 10px var(--gold);
+    animation: twinkle 2s infinite alternate;
+}
+
+.orbit-stars .star:nth-child(even) {
+    animation-delay: 1s;
+    font-size: 10px;
+    color: #fff;
+}
+
+/* =========================================
+   BOOK STAGE (မူရင်းအတိုင်း)
+========================================= */
+#book-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .8s;
+}
+
+#book-stage.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#message-box {
+    width: 92%;
+    max-width: 450px;
+    min-height: 90px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    border-radius: 15px;
+    border: 1px solid #d8b56d88;
+    background: linear-gradient(135deg, #192941, #080e19);
+    box-shadow: 0 10px 35px #0008, 0 0 20px #d8b56d22;
+    opacity: 0;
+    transform: translateY(-15px);
+    transition: .5s;
+}
+
+#message-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#message-text {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #f5e9cf;
+    font-style: normal;
+}
+
+.corner-heart {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    color: var(--gold);
+    animation: pulse 1.5s infinite;
+}
+
+.book-wrapper {
+    position: relative;
+    width: min(88vw, 420px);
+    height: min(62vw, 280px);
+    min-height: 190px;
+    perspective: 1400px;
+    cursor: pointer;
+    filter: drop-shadow(0 15px 30px #0008);
+}
+
+#book-cover {
+    position: absolute;
+    left: 22.5%;
+    width: 55%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 18px;
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    background: linear-gradient(145deg, #20334e, #080e19);
+    box-shadow: inset 0 0 20px #d8b56d22, 0 10px 35px #0008;
+    transition: transform .7s, opacity .5s;
+}
+
+#book-cover.hidden {
+    transform: rotateY(-120deg) scale(.9);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cover-hint {
+    margin-top: 20px;
+    margin-bottom: auto;
+    color: var(--gold-light);
+    font-size: 11px;
+    letter-spacing: 1px;
+    animation: pulse 1.5s infinite;
+}
+
+.cover-symbol {
+    font-size: 75px;
+    color: var(--gold);
+    text-shadow: 0 0 25px #d8b56d88;
+    margin-bottom: 25px;
+}
+
+#book-spread {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #101d30;
+    opacity: 0;
+    transform: scale(.85);
+    transition: .6s;
+    box-shadow: 0 15px 40px #0009;
+}
+
+#book-spread.open {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#book-spread.closing {
+    opacity: 0;
+    transform: rotateY(90deg) scale(.7);
+}
+
+.page {
+    width: 50%;
+    height: 100%;
+    padding: 9px;
+    background: #101d30;
+}
+
+.page-left {
+    border-right: 1px solid #d8b56d66;
+}
+
+.page img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #d8b56d55;
+}
+
+.tap-guide {
+    margin-top: 18px;
+    color: var(--gold-light);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* HEART COLLAGE */
+#heart-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.heart-tile {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    border: 2px solid var(--gold);
+    border-radius: 9px;
+    overflow: hidden;
+    background: #101d30;
+    box-shadow: 0 0 15px #d8b56d66;
+    opacity: 0;
+    transform: scale(0);
+    transition: transform 1s cubic-bezier(.22,1,.36,1), opacity .8s;
+}
+
+.heart-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#sound-hint {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    color: var(--gold-light);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-align: center;
+    opacity: .85;
+    pointer-events: none;
+    transition: opacity .5s;
+}
+
+/* ANIMATIONS */
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse {
+    0%,100% { transform: scale(1); opacity: .8; }
+    50% { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+    0%,100% { transform: scale(1); text-shadow: 0 0 10px #a87ffb; }
+    50% { transform: scale(1.1); text-shadow: 0 0 20px #a87ffb, 0 0 30px #a87ffb; }
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.2); }
+}
+
+@media (min-width: 500px) {
+    .heart-tile {
+        width: 66px;
+        height: 66px;
+    }
+}
+
+@media (max-width: 380px) {
+    #message-box {
+        padding: 13px 17px;
+        margin-bottom: 16px;
+    }
+
+    #message-text {
+        font-size: 13px;
+    }
+
+    .page {
+        padding: 5px;
+    }
+
+    .tap-guide {
+        font-size: 10px;
+    }
+}

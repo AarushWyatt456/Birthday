@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday | Scorpio Edition</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<canvas id="stage1-canvas"></canvas>
+<canvas id="star-canvas"></canvas>
+
+<!-- BIRTHDAY INTRO -->
+<div id="bear-intro">
+    <div class="candle-banner">
+        <div class="scorpio-title">
+            <span class="scorpio-icon">♏</span>
+            <span>SCORPIO SEASON</span>
+        </div>
+        <br>
+        <span class="happy-title">HAPPY BIRTHDAY</span>
+    </div>
+    
+    <div class="photo-wrapper">
+        <div class="orbit-stars">
+            <span class="star" style="top: -15px; left: 20%;">✦</span>
+            <span class="star" style="top: 10%; right: -20px;">✧</span>
+            <span class="star" style="bottom: 10%; left: -25px;">✦</span>
+            <span class="star" style="bottom: -15px; right: 30%;">✧</span>
+        </div>
+        <div class="bear-character">
+            <img src="2.jpg" alt="Birthday Photo">
+        </div>
+    </div>
+</div>
+
+<!-- BOOK STAGE -->
+<div id="book-stage">
+    <div id="message-box">
+        <span id="message-text"></span>
+        <span class="corner-heart">♏</span>
+    </div>
+
+    <div class="book-wrapper" id="book-wrapper">
+        <div id="book-cover">
+            <div class="cover-hint">OPEN YOUR BIRTHDAY BOOK</div>
+            <div class="cover-symbol">♏</div>
+        </div>
+
+        <div id="book-spread">
+            <div class="page page-left">
+                <img id="left-img" src="" alt="Memory 1">
+            </div>
+            <div class="page page-right">
+                <img id="right-img" src="" alt="Memory 2">
+            </div>
+        </div>
+    </div>
+
+    <div class="tap-guide" id="tap-guide">TAP TO OPEN YOUR BOOK</div>
+</div>
+
+<!-- FINAL COLLAGE -->
+<div id="heart-stage"></div>
+
+<div id="sound-hint">TAP ANYWHERE TO START THE MUSIC ♫</div>
+
+<!-- AUDIO -->
+<audio id="intro-music" loop preload="auto">
+    <source src="HAPPY BIRTHDAY INSTRUMENTAL.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="wish-voice" preload="auto">
+    <source src="hb.m4a" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>

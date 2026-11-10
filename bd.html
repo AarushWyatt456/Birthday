@@ -1,0 +1,759 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#090b1c" />
+  <title>Happy Birthday ♏</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #090b1c;
+      --navy-light: #151832;
+      --purple: #6e4c91;
+      --gold: #d9bd83;
+      --cream: #fff8e9;
+      --muted: #b9b4c9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      background: var(--navy);
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, #292044 0, transparent 35%),
+        radial-gradient(circle at 80% 80%, #191d3d 0, transparent 40%),
+        var(--navy);
+      color: var(--cream);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .star-field {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: white;
+      opacity: .65;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: .2; transform: scale(.8); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    .shooting-star {
+      position: fixed;
+      width: 90px;
+      height: 1px;
+      background: linear-gradient(90deg, white, transparent);
+      transform: rotate(-35deg);
+      opacity: 0;
+      animation: shooting 7s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shooting {
+      0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
+      5% { opacity: 1; }
+      15% { transform: translate(-250px, 180px) rotate(-35deg); opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      display: none;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding:
+        max(28px, env(safe-area-inset-top))
+        18px
+        max(35px, env(safe-area-inset-bottom));
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .screen.active {
+      display: flex;
+      animation: fadeIn .8s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content {
+      width: 100%;
+      max-width: 760px;
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: .72rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .main-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.8rem, 9vw, 5rem);
+      font-weight: 500;
+      line-height: 1.05;
+      color: var(--cream);
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.8;
+      margin: 18px auto 28px;
+      max-width: 480px;
+    }
+
+    .gift {
+      font-size: clamp(5rem, 20vw, 8rem);
+      margin: 25px 0;
+      display: inline-block;
+      filter: drop-shadow(0 0 25px #b89bdf55);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-13px) rotate(3deg); }
+    }
+
+    .primary-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 13px 28px;
+      border: 1px solid var(--gold);
+      border-radius: 50px;
+      background: linear-gradient(135deg, #d9bd83, #a98a59);
+      color: #171326;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: .25s ease;
+      box-shadow: 0 6px 25px #d9bd8328;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px #d9bd8344;
+    }
+
+    .secondary-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 46px;
+      padding: 12px 24px;
+      border: 1px solid #d9bd8370;
+      border-radius: 50px;
+      background: #ffffff08;
+      color: var(--gold);
+      margin-top: 18px;
+    }
+
+    /* Scorpio reveal */
+
+    .scorpio-symbol {
+      font-size: clamp(5rem, 20vw, 8rem);
+      color: var(--gold);
+      text-shadow: 0 0 35px #d9bd8370;
+      margin: 20px 0;
+    }
+
+    .constellation {
+      width: min(100%, 330px);
+      margin: 20px auto;
+      opacity: .9;
+    }
+
+    .constellation svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .constellation line {
+      stroke: var(--gold);
+      stroke-width: 1.3;
+      opacity: .7;
+    }
+
+    .constellation circle {
+      fill: var(--gold);
+      filter: drop-shadow(0 0 5px var(--gold));
+    }
+
+    /* Birthday page */
+
+    #birthday {
+      align-items: flex-start;
+    }
+
+    .birthday-content {
+      max-width: 760px;
+      padding-top: 12px;
+    }
+
+    .birthday-heading {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.7rem, 9vw, 4.5rem);
+      line-height: 1.1;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .birthday-heading span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .photo-frame {
+      width: min(72vw, 260px);
+      aspect-ratio: 4 / 5;
+      margin: 25px auto;
+      padding: 7px;
+      border: 1px solid var(--gold);
+      border-radius: 150px 150px 18px 18px;
+      background: linear-gradient(145deg, #d9bd83, #6e4c91);
+      box-shadow: 0 0 35px #d9bd8322;
+      overflow: hidden;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 35%;
+      border-radius: inherit;
+    }
+
+    .birthday-name {
+      color: var(--gold);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 7vw, 3rem);
+      margin: 12px 0;
+    }
+
+    .wish-card {
+      max-width: 620px;
+      margin: 25px auto;
+      padding: 25px 22px;
+      border: 1px solid #d9bd8360;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #ffffff0d, #ffffff04);
+      box-shadow: 0 15px 40px #00000020;
+      text-align: center;
+    }
+
+    .wish-label {
+      color: var(--gold);
+      font-size: .7rem;
+      letter-spacing: 4px;
+      margin-bottom: 18px;
+    }
+
+    .wish-text {
+      font-family: "Padauk", sans-serif;
+      font-size: clamp(1rem, 3.5vw, 1.15rem);
+      line-height: 2;
+      color: var(--cream);
+      white-space: pre-line;
+      overflow-wrap: anywhere;
+    }
+
+    .small-stars {
+      color: var(--gold);
+      letter-spacing: 8px;
+      margin: 20px 0;
+    }
+
+    /* Cake gallery */
+
+    .cake-section {
+      margin: 42px auto 20px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 7vw, 3rem);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .cake-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+      width: 100%;
+    }
+
+    .cake-card {
+      min-width: 0;
+      padding: 8px;
+      border: 1px solid #d9bd8360;
+      border-radius: 15px;
+      background: #ffffff09;
+      overflow: hidden;
+    }
+
+    .cake-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      display: block;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cake-caption {
+      color: var(--gold);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.05rem;
+      padding: 10px 2px 5px;
+    }
+
+    .footer-note {
+      color: #aaa4b8;
+      font-size: .75rem;
+      letter-spacing: 2px;
+      margin-top: 35px;
+    }
+
+    /* Music control */
+
+    .music-btn {
+      position: fixed;
+      z-index: 10;
+      top: max(15px, env(safe-area-inset-top));
+      right: 15px;
+      width: 43px;
+      height: 43px;
+      border: 1px solid #d9bd8370;
+      border-radius: 50%;
+      background: #151832dd;
+      color: var(--gold);
+      font-size: 1.1rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .music-btn.visible {
+      display: flex;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 600px) {
+      .screen {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .birthday-content {
+        padding-top: 35px;
+      }
+
+      .photo-frame {
+        width: min(68vw, 235px);
+      }
+
+      .wish-card {
+        padding: 21px 16px;
+        margin-top: 20px;
+      }
+
+      .cake-grid {
+        grid-template-columns: 1fr;
+        max-width: 390px;
+        margin: auto;
+        gap: 16px;
+      }
+
+      .cake-card {
+        padding: 10px;
+      }
+
+      .cake-card img {
+        aspect-ratio: 4 / 3;
+      }
+
+      .cake-caption {
+        font-size: 1.2rem;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        width: min(100%, 290px);
+      }
+    }
+
+    @media (max-width: 360px) {
+      .main-title {
+        font-size: 2.5rem;
+      }
+
+      .wish-text {
+        font-size: .95rem;
+      }
+    }
+
+    @media (max-height: 650px) and (orientation: landscape) {
+      .screen {
+        align-items: flex-start;
+      }
+
+      .content {
+        padding-top: 20px;
+      }
+
+      .gift {
+        font-size: 4rem;
+        margin: 12px 0;
+      }
+
+      .photo-frame {
+        width: 150px;
+      }
+    }
+
+    /* Confetti */
+
+    .confetti {
+      position: fixed;
+      z-index: 20;
+      top: -15px;
+      width: 8px;
+      height: 12px;
+      pointer-events: none;
+      animation: fall 4s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="star-field" id="star-field"></div>
+
+  <audio id="bg-music" loop>
+    <source src="hb.m4a" type="audio/mp4">
+  </audio>
+
+  <button class="music-btn" id="music-btn" aria-label="Toggle music" onclick="toggleMusic()">♫</button>
+
+  <!-- SCREEN 1: WELCOME -->
+
+  <section class="screen active" id="welcome">
+    <div class="content">
+      <p class="eyebrow">A little surprise for you</p>
+
+      <h1 class="main-title">
+        Something<br>
+        <span class="gold">Special</span> awaits...
+      </h1>
+
+      <div class="gift">🎁</div>
+
+      <p class="subtitle">
+        A little birthday surprise, made especially for you.
+        Take a moment and open it.
+      </p>
+
+      <button class="primary-btn" onclick="openGift()">
+        OPEN YOUR GIFT ✦
+      </button>
+    </div>
+  </section>
+
+
+  <!-- SCREEN 2: SCORPIO REVEAL -->
+
+  <section class="screen" id="reveal">
+    <div class="content">
+      <p class="eyebrow">Born under the stars</p>
+
+      <div class="scorpio-symbol">♏</div>
+
+      <h1 class="main-title">
+        The <span class="gold">Scorpio</span>
+      </h1>
+
+      <div class="constellation">
+        <svg viewBox="0 0 330 180" xmlns="http://www.w3.org/2000/svg">
+          <line x1="35" y1="120" x2="85" y2="75"/>
+          <line x1="85" y1="75" x2="125" y2="100"/>
+          <line x1="125" y1="100" x2="165" y2="55"/>
+          <line x1="165" y1="55" x2="205" y2="85"/>
+          <line x1="205" y1="85" x2="245" y2="45"/>
+          <line x1="245" y1="45" x2="285" y2="70"/>
+          <line x1="285" y1="70" x2="300" y2="120"/>
+
+          <circle cx="35" cy="120" r="3"/>
+          <circle cx="85" cy="75" r="4"/>
+          <circle cx="125" cy="100" r="3"/>
+          <circle cx="165" cy="55" r="4"/>
+          <circle cx="205" cy="85" r="3"/>
+          <circle cx="245" cy="45" r="4"/>
+          <circle cx="285" cy="70" r="3"/>
+          <circle cx="300" cy="120" r="3"/>
+        </svg>
+      </div>
+
+      <p class="subtitle">
+        A new chapter, another year of memories,
+        and countless beautiful moments waiting ahead.
+      </p>
+
+      <button class="primary-btn" onclick="showBirthday()">
+        CONTINUE ✦
+      </button>
+    </div>
+  </section>
+
+
+  <!-- SCREEN 3: BIRTHDAY WISH -->
+
+  <section class="screen" id="birthday">
+    <div class="content birthday-content">
+
+      <p class="eyebrow">A day made for you</p>
+
+      <h1 class="birthday-heading">
+        Happy Birthday <span>par</span>
+      </h1>
+
+      <!-- Birthday person's photo -->
+      <div class="photo-frame">
+        <img src="photo.jpg" alt="Birthday person" />
+      </div>
+
+      <h2 class="birthday-name">ဖေကောင်း ♡</h2>
+
+      <!-- Birthday wish -->
+      <div class="wish-card">
+        <p class="wish-label">MY BIRTHDAY WISH FOR YOU</p>
+
+        <p class="wish-text" id="birthday-message">Happy birthday par ဖေကောင်း
+မွေးနေ့မှစဖြစ်ချင်တာတွေအကုန်ဖြစ်မြောက်အောင်မြင်ပါစေ
+စိတ်ရောကိုယ်ပါကျန်းကျန်းမာမာချမ်းချမ်းသာသာနဲ့ ဘဝကိုအထီးမကျန်ပဲ‌ေပျာ်‌ေပျာ်ရွှင်ရွှင်ဖြတ်သန်းနိုင်ပါစေ</p>
+
+        <div class="small-stars">✦ ♡ ✦</div>
+      </div>
+
+
+      <!-- Cake gallery: keep or delete any image later -->
+
+      <div class="cake-section">
+        <p class="eyebrow">A sweet little celebration</p>
+
+        <h2 class="section-title">
+          Birthday <span class="gold">Cakes</span>
+        </h2>
+
+        <p class="section-description">
+          Three little cake ideas for your special day ♡
+        </p>
+
+        <div class="cake-grid">
+
+          <!-- Cake option 1 -->
+          <div class="cake-card">
+            <img src="cake-green.jpg" alt="Green birthday cake" />
+            <p class="cake-caption">Green Garden</p>
+          </div>
+
+          <!-- Cake option 2 -->
+          <div class="cake-card">
+            <img src="cake-red.jpg" alt="Red and black birthday cake" />
+            <p class="cake-caption">Midnight Red</p>
+          </div>
+
+          <!-- Cake option 3 -->
+          <div class="cake-card">
+            <img src="cake-drawing.jpg" alt="Green illustrated birthday cake" />
+            <p class="cake-caption">Little Clover</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="small-stars">✦ ✧ ✦</div>
+
+      <p class="footer-note">
+        MADE WITH A LITTLE LOVE ♡
+      </p>
+
+    </div>
+  </section>
+
+
+  <script>
+    // Create background stars
+    const starField = document.getElementById("star-field");
+
+    for (let i = 0; i < 90; i++) {
+      const star = document.createElement("span");
+      star.className = "star";
+
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.animationDelay = Math.random() * 4 + "s";
+      star.style.animationDuration = (2 + Math.random() * 4) + "s";
+
+      starField.appendChild(star);
+    }
+
+    // Screen navigation
+    function changeScreen(screenId) {
+      document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+      });
+
+      document.getElementById(screenId).classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function openGift() {
+      changeScreen("reveal");
+    }
+
+    function showBirthday() {
+      changeScreen("birthday");
+
+      document.getElementById("music-btn").classList.add("visible");
+
+      const music = document.getElementById("bg-music");
+
+      music.play().catch(() => {
+        // Browser may require the visitor to press the music button.
+      });
+
+      launchConfetti();
+    }
+
+    // Background music control
+    let musicPlaying = false;
+
+    function toggleMusic() {
+      const music = document.getElementById("bg-music");
+      const button = document.getElementById("music-btn");
+
+      if (musicPlaying) {
+        music.pause();
+        button.textContent = "♫";
+        musicPlaying = false;
+      } else {
+        music.play().then(() => {
+          button.textContent = "♪";
+          musicPlaying = true;
+        }).catch(() => {
+          button.textContent = "♫";
+          musicPlaying = false;
+        });
+      }
+    }
+
+    // Confetti effect
+    function launchConfetti() {
+      const colors = ["#d9bd83", "#a98acb", "#ffffff", "#8b6bb0", "#e8d6ad"];
+
+      for (let i = 0; i < 100; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti";
+
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.backgroundColor =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        piece.style.animationDelay = Math.random() * 2 + "s";
+        piece.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+        document.body.appendChild(piece);
+
+        setTimeout(() => {
+          piece.remove();
+        }, 6500);
+      }
+    }
+  </script>
+
+</body>
+</html>
